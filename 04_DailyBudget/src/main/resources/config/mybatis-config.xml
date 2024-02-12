@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="config/connection-info.properties"/>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.may54ther.user.model.dto.UserDTO" alias="UserDTO"/>
+        <typeAlias type="com.may54ther.budget.model.dto.BudgetDTO" alias="BudgetDTO"/>
+        <typeAlias type="com.may54ther.budget.model.dto.CategoryDTO" alias="CategoryDTO"/>
+        <typeAlias type="com.may54ther.budget.model.dto.BudgetAndCategoryDTO" alias="BudgetAndCategoryDTO"/>
+    </typeAliases>
+    <environments default="dev">
+        <environment id="dev">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <package name="com.may54ther.user.model.mapper"/>
+        <package name="com.may54ther.budget.model.mapper"/>
+    </mappers>
+</configuration>

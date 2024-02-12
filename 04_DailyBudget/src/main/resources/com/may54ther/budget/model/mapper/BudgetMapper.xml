@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.may54ther.budget.model.mapper.BudgetMapper">
+
+    <resultMap id="BudgetAndCategoryResultMap" type="BudgetAndCategoryDTO">
+        <id property="code" column="code"/>
+        <result property="userCode" column="user_code"/>
+        <result property="usageDate" column="usage_date"/>
+        <result property="type" column="type"/>
+        <result property="amount" column="amount"/>
+        <result property="description" column="description"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+
+        <association property="category" javaType="CategoryDTO">
+            <id property="code" column="category_code"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <select id="selectBudgetAndCategoryByUserCode" resultMap="BudgetAndCategoryResultMap">
+        SELECT
+        b.code,
+        b.category_code,
+        b.user_code,
+        b.usage_date,
+        b.type,
+        b.amount,
+        b.description,
+        b.created_at,
+        b.updated_at,
+        c.code,
+        c.name
+        FROM tbl_budget b
+        JOIN tbl_category c ON b.category_code = c.code
+        <where>
+            <if test="userCode > 0">
+                b.user_code = #{userCode}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBudgetAndCategoryByCondition" resultMap="BudgetAndCategoryResultMap">
+        SELECT
+        b.code,
+        b.category_code,
+        b.user_code,
+        b.usage_date,
+        b.type,
+        b.amount,
+        b.description,
+        b.created_at,
+        b.updated_at,
+        c.name
+        FROM tbl_budget b
+        JOIN tbl_category c ON b.category_code = c.code
+        <where>
+            <if test="type != null and type != ''">
+                b.type = #{type}
+            </if>
+            <if test="date != null and date != ''">
+                AND b.usage_date LIKE CONCAT(#{date}, '%')
+            </if>
+            <if test="description != null and description != ''">
+                AND b.description LIKE CONCAT('%',#{description}, '%')
+            </if>
+            <if test="userCode > 0">
+                AND b.user_code = #{userCode}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertBudget" parameterType="BudgetDTO">
+        INSERT INTO tbl_budget
+            (user_code, category_code, type, amount, usage_date, description)
+        VALUES
+            (#{userCode}, #{categoryCode}, #{type}, #{amount}, #{usageDate}, #{description})
+    </insert>
+
+    <update id="updateBudget" parameterType="BudgetDTO">
+        UPDATE tbl_budget
+        <set>
+            <if test="categoryCode > 0">
+                category_code = #{categoryCode}
+            </if>
+            <if test="type != null and type != '' and (type == 'IN' or type == 'OUT')">
+                ,type = #{type}
+            </if>
+            <if test="amount > 0">
+                ,amount = #{amount}
+            </if>
+            <if test="usageDate != null">
+                ,usage_date = #{usageDate}
+            </if>
+            <if test="description != null and description != ''">
+                ,description = #{description}
+            </if>
+        </set>
+        WHERE code = #{code}
+    </update>
+
+    <delete id="deleteBudget">
+        DELETE
+          FROM tbl_budget
+         WHERE code = #{budgetCode}
+    </delete>
+</mapper>
