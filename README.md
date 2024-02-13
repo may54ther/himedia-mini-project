@@ -1,1 +1,1 @@
-# himedia-mini-project
+# himedia-practice
