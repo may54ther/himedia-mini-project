@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- settings -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!-- environments -->
+    <environments default="dev">
+        <environment id="dev">
+            <!-- type : JDBC or MANAGED 선택 -->
+            <transactionManager type="JDBC"/>
+            <!-- type : POOLED or UNPOOLED 선택 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/sakila"/>
+                <property name="username" value="ohgiraffers"/>
+                <property name="password" value="ohgiraffers"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- mappers -->
+    <mappers>
+        <package name="com.may54ther.mvc.customer.model.dao"/>
+    </mappers>
+</configuration>

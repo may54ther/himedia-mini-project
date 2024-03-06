@@ -97,7 +97,6 @@ public class CustomerService {
         return result > 0;
 
     }
-
     public boolean updateById(int customerId, String firstName, String lastName, String email) {
         int result = 0;
 
