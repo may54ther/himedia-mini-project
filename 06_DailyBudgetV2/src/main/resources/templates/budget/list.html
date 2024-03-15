@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) alert(successMessage);
+    </script>
+</head>
+<body>
+    <div id="wrap">
+        <div th:replace="common/header.html"></div>
+
+        <div id="container" class="sec_list">
+            <h3 th:text="#{page.budgetList.title}"></h3>
+
+            <div class="area_btn">
+                <button class="btn" onclick="location.href='/budget/add'">등록</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>카테고리 번호</th>
+                        <th>날짜</th>
+                        <th>입출금여부</th>
+                        <th>사용금액</th>
+                        <th>설명</th>
+                        <th>생성일</th>
+                        <th>수정일</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="budget : ${ budgets }">
+                        <td th:text="${ budget.code }"></td>
+                        <td th:text="${ budget.categoryCode }"></td>
+                        <td th:text="${ budget.usageDate }"></td>
+                        <td th:text="${ budget.type }"></td>
+                        <td th:text="${ budget.amount }"></td>
+                        <td th:text="${ budget.description }"></td>
+                        <td th:text="${ budget.createdAt }"></td>
+                        <td th:text="${ budget.updatedAt }"></td>
+                        <td>
+                            <button th:id="|btn${ budget.code }|">❌삭제</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const $tr = document.querySelectorAll("tbody tr");
+        $tr.forEach(el => {
+            el.addEventListener("click", function (e) {
+                if (e.target.tagName === 'BUTTON') {
+                    const confirm = window.confirm("해당 가계부를 삭제하시겠습니까?");
+                    if (confirm) {
+                        const budgetId = e.target.id.substring(3);
+                        fetch('/budget/delete/' + budgetId, { method: "DELETE" })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data.result === 'true') {
+                                        el.remove();
+                                        alert('삭제가 완료되었습니다.');
+                                    }
+                                });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

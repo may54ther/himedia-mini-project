@@ -1,0 +1,20 @@
+# spring datasource config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/dailybudgetV2
+    username: ohgiraffers
+    password: ohgiraffers
+# mybatis config
+mybatis:
+  mapper-locations: mappers/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+# logging config
+#logging:
+#  level:
+#    root: debug
+#  file:
+#    name: myapp.log
+#    path: c:/Users/ahakim/Dev/himedia/himedia-lecture/10_spring/02_web/chap09-crud-lecture-source
+#

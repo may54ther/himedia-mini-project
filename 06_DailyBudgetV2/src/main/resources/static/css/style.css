@@ -1,0 +1,23 @@
+table {margin-bottom: 12px; border: 1px solid #d4d4d4; border-collapse: collapse; font-size: 14px}
+th, td {padding: 7px; font-weight: normal; text-align: left; border: 1px solid #d4d4d4 }
+th {background-color: #f4f4f4}
+
+.ta-center {text-align: center}
+.ta-right {text-align: right}
+
+input, select {border: 1px solid #d4d4d4; border-radius: 2px; box-sizing: border-box;}
+.ipt, .sel {width: 100%; height: 30px; padding: 4px;line-height: 30px; }
+.btn {width: 100px; color: #fff; background: #222; line-height: 30px; border: 0; border-radius: 4px; cursor: pointer; transition: opacity .2s}
+.btn:hover {opacity: .9}
+
+.area_btn {margin: 8px 0; text-align: right}
+
+#wrap {text-align: center}
+#container {margin: 0 auto; text-align: center}
+#container table {width: 100%}
+#container .btn {}
+.sec_list {width: 1000px}
+.sec_add {width: 540px}
+.sec_add th {width: 20%;}
+.sec_main .btn {display: block; width: 300px; margin: 3px auto; line-height: 36px;}
+.sec_main .btn:last-child {background-color: #0a78ff; color: #fff}

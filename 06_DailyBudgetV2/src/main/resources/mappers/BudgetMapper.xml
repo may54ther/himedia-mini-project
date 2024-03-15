@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.may54ther.dailybudget.budget.model.mapper.BudgetMapper">
+
+    <select id="findAllBudget" resultType="com.may54ther.dailybudget.budget.model.dto.BudgetDTO">
+        SELECT code,
+               category_code,
+               usage_date,
+               type,
+               amount,
+               description,
+               created_at,
+               updated_at
+          FROM tbl_budget
+         ORDER BY code DESC
+    </select>
+
+    <select id="findCategoryList" resultType="com.may54ther.dailybudget.budget.model.dto.CategoryDTO">
+        SELECT code, name
+          FROM tbl_category
+         ORDER BY code
+    </select>
+    <insert id="insertBudget">
+        INSERT INTO tbl_budget
+            (category_code, type, amount, usage_date, description)
+        VALUES
+            (#{categoryCode}, #{type}, #{amount}, #{usageDate}, #{description})
+    </insert>
+
+    <delete id="deleteBudget">
+        DELETE
+          FROM tbl_budget
+         WHERE code = #{budgetCode}
+    </delete>
+</mapper>

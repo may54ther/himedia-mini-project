@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="wrap">
+        <div th:replace="common/header.html"></div>
+
+        <div id="container" class="sec_add">
+            <h3 th:text="#{page.addBudget.title}"></h3>
+
+
+            <form action="/budget/add" method="post">
+                <table>
+                    <tr>
+                        <th>
+                            <label for="categoryCode">카테고리</label>
+                        </th>
+                        <td>
+                            <select name="categoryCode" id="categoryCode" class="sel"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="usageDate">날짜</label>
+                        </th>
+                        <td>
+                            <input type="date" id="usageDate" name="usageDate" class="ipt">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="type">입출금여부</label>
+                        </th>
+                        <td>
+                            <select name="type" id="type" class="sel">
+                                <option value="IN">입금</option>
+                                <option value="OUT">출금</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="amount">금액</label>
+                        </th>
+                        <td>
+                            <input type="number" id="amount" name="amount" class="ipt">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="description">설명</label>
+                        </th>
+                        <td>
+                            <input type="text" id="description" name="description" class="ipt">
+                        </td>
+                    </tr>
+                </table>
+                <div class="area_btn">
+                    <input type="submit" class="btn">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        fetch('/budget/category')
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+
+                    const $categoryCode = document.getElementById("categoryCode");
+                    data.forEach(category => {
+                        const $option = document.createElement('option');
+                        $option.textContent = category.name;
+                        $option.value = category.code;
+
+                        $categoryCode.appendChild($option);
+                    });
+                });
+    </script>
+</body>
+</html>
