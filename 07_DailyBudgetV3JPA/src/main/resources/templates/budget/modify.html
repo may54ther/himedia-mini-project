@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/common/head}"></th:block>
+
+<body>
+    <div id="wrap">
+        <th:block th:replace="~{/common/header}"></th:block>
+
+        <div id="container">
+            <h2>가계부 수정</h2>
+
+            <form action="/budget/modify" method="post" th:object="${budget}">
+                <input type="hidden" th:field="*{code}">
+                <div class="field">
+                    <label for="categoryCode">카테고리</label>
+                    <select id="categoryCode" name="categoryCode" th:attr="data-category-code=*{categoryCode}"></select>
+                </div>
+                <div class="field">
+                    <label for="usageDate">사용일</label>
+                    <input type="date" id="usageDate" name="usageDate" th:field="*{usageDate}" class="ipt" />
+                </div>
+                <div class="field">
+                    <label for="type">구분</label>
+                    <select id="type" name="type" th:field="*{type}" class="sel">
+                        <option value="IN" th:selected="${type} == this.value">입금</option>
+                        <option value="OUT" th:selected="${type} == this.value">출금</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="amount">금액</label>
+                    <input type="number" id="amount" name="amount" step="100" th:field="*{amount}" />
+                </div>
+                <div class="field">
+                    <label for="description">설명</label>
+                    <input type="text" id="description" name="description" th:field="*{description}" />
+                </div>
+
+                <div class="field">
+                    <input type="submit" value="저장">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- js -->
+    <script th:inline="javascript">
+        window.addEventListener("DOMContentLoaded", getCategories);
+
+        function getCategories() {
+            fetch('/api/budgets/categories')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const $category = document.getElementById('categoryCode');
+                        const categoryCode = $category.getAttribute("data-category-code");
+                        const categoryList = data.response;
+
+                        categoryList.forEach(category => {
+                            const $option = document.createElement('option');
+                            $option.value = category.code;
+                            $option.textContent = category.name;
+                            $option.selected = (category.code) == categoryCode ? true : false;
+
+                            $category.appendChild($option);
+                        });
+                    }
+                });
+        }
+    </script>
+</body>
+</html>

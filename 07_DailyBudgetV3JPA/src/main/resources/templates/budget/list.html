@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/common/head}"></th:block>
+
+<body>
+    <div id="wrap">
+        <th:block th:replace="~{/common/header}"></th:block>
+
+        <div id="container">
+            <h2>가계부 목록</h2>
+
+            <div class="box">
+                <table>
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:50px">
+                        <col style="width:100px">
+                        <col style="width:120px">
+                        <col style="width:auto">
+                        <col style="width:115px">
+                        <col style="width:100px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>구분</th>
+                            <th>카테고리</th>
+                            <th>금액</th>
+                            <th>설명</th>
+                            <th>사용일</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="budget : ${budgetList}" th:object="${budget}">
+                            <td th:text="*{code}"></td>
+                            <td th:text="*{type}"></td>
+                            <td class="left" th:text="*{categoryName}"></td>
+                            <td class="right" th:text="*{amount}"></td>
+                            <td class="left" th:text="*{description}"></td>
+                            <td th:text="*{usageDate}"></td>
+                            <td>
+                                <button type="button" th:onclick="|location.href='/budget/modify?budgetCode=${budget.code}'|">수정</button>
+                                <button type="button" class="delete-btn" th:attr="data-budget=${budget.code}">삭제</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div id="paging">
+                    <!-- First -->
+                    <button th:onclick="'location.href=\'/budget/list?page=' + @{${paging.startPage}} + '\''">&Lt;</button>
+                    <!-- Prev -->
+                    <button th:onclick="'location.href=\'/budget/list?page=' + @{${paging.currentPage - 1}} + '\''" th:disabled="${budgetList.first}">&lt;</button>
+
+                    <!-- 숫자 버튼 -->
+                    <th:block th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+                        <button th:onclick="'location.href=\'/budget/list?page=' + @{${page}} + '\''"
+                                th:text="${page}"
+                                th:disabled="${paging.currentPage eq page}">
+                        </button>
+                    </th:block>
+                    <!-- Next -->
+                    <button th:onclick="'location.href=\'/budget/list?page=' + @{${paging.currentPage + 1}} + '\''" th:disabled="${budgetList.last}"> &gt;</button>
+                    <!-- Last -->
+                    <button th:onclick="'location.href=\'/budget/list?page=' + @{${paging.endPage}} + '\''"> &Gt;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- js -->
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            /* 삭제 처리 */
+            document.querySelectorAll(".delete-btn").forEach(btn => {
+                btn.addEventListener("click", (event) => {
+
+                    if (window.confirm("해당 가계부를 삭제하시겠습니까?")) {
+                        const budgetCode = btn.getAttribute("data-budget");
+
+                        fetch('/api/budgets/' + budgetCode, {
+                            method: "DELETE",
+                        }).then(response => response.json())
+                          .then(data => {
+                              if (data.success) {
+                                  btn.parentNode.parentNode.remove();
+                                  alert(data.message);
+                              }
+                          });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/common/head}"></th:block>
+
+<body>
+    <div id="wrap">
+        <th:block th:replace="~{/common/header}"></th:block>
+
+        <div id="container">
+            <h2>검색 결과</h2>
+
+            <div class="box">
+                <table>
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:50px">
+                        <col style="width:100px">
+                        <col style="width:120px">
+                        <col style="width:auto">
+                        <col style="width:115px">
+                        <col style="width:100px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>구분</th>
+                            <th>카테고리</th>
+                            <th>금액</th>
+                            <th>설명</th>
+                            <th>사용일</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="budget : ${budgetList}" th:object="${budget}">
+                            <td th:text="*{code}"></td>
+                            <td th:text="*{type}"></td>
+                            <td class="left" th:text="*{categoryName}"></td>
+                            <td class="right" th:text="*{amount}"></td>
+                            <td class="left" th:text="*{description}"></td>
+                            <td th:text="*{usageDate}"></td>
+                            <td>
+                                <button type="button" th:onclick="|location.href='/budget/modify?budgetCode=${budget.code}'|">수정</button>
+                                <button type="button" class="delete-btn" th:attr="data-budget=${budget.code}">삭제</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

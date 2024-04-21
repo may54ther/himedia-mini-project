@@ -1,0 +1,32 @@
+* {box-sizing: border-box}
+h1, h2 {text-align: center}
+
+table {width: 100%; margin: 0 auto 8%; border: 1px solid #d4d4d4; border-collapse: collapse; font-size: 16px}
+th, td {padding: 7px; border: 1px solid #d4d4d4; font-weight: normal; }
+th {background-color: #f4f4f4}
+input, select, input[type=date] {padding-left: 8px; border: 1px solid #d4d4d4; border-radius: 4px; font-size: 16px;}
+
+#wrap {min-width: 400px; max-width: 1000px; margin: 10% auto}
+#container {width: 95%; margin: 0 auto}
+
+.box {width: 100%; margin: 3% auto;text-align: center}
+.field {width: 50%; min-width: 320px; margin: 3% auto 0; text-align: left;}
+.field label {display: block; margin-bottom: 4px; font-size: 12px; }
+.field input, .field select {width: 100%; height: 42px;}
+.field input[type=submit], .field button, .btn, .box-search-option .btn:hover {width: 100%; height: 40px; border: 1px solid darkslategray; border-radius: 7px; background-color: #fff; color: darkslategray; font-size: 16px; cursor: pointer; transition: all .35s}
+.field input[type=submit]:hover, .field button:hover, .btn:hover, .box-search-option .btn { background-color: darkslategray; color: #fff;}
+.field-search {display: flex; justify-content: space-between}
+.field-search .ipt {width: 65%}
+.field-search .btn {width: 33%}
+
+.ipt, .sel {width: 100%; height: 30px; padding: 4px;line-height: 30px; }
+.box-search {margin-top: 70px }
+.box-search-option {display: flex; justify-content: space-between}
+.box-search-option .left {display: flex}
+.box-search-option .left > .item + .item {margin-left: 7px}
+.box-search-option .ipt, .box-search-option .sel, .box-search-option .btn {width: auto; height: 32px; padding: 0 12px}
+.box-search-option .btn:hover {height: 32px}
+
+.left {text-align: left}
+.right {text-align: right}
+.blind {position: absolute; width: 0; height: 0; overflow: hidden }

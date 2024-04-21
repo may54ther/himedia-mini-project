@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/common/head}"></th:block>
+
+<body>
+    <div id="wrap">
+        <th:block th:replace="~{/common/header}"></th:block>
+
+        <div id="container">
+            <div class="field">
+                <button class="btn" onclick="location.href='/budget/add'">가계부 추가</button>
+            </div>
+            
+            <div class="field field-search">
+                <input type="text" id="budgetCode" class="ipt" placeholder="조회할 가계부 코드 입력">
+                <button class="btn" onclick="findBudget()">조회</button>
+            </div>
+            <div class="field">
+                <!-- 수정, 삭제는 목록 페이지에 -->
+                <button class="btn" onclick="location.href='/budget/list'">가계부 목록</button>
+            </div>
+            <div class="field">
+                <button class="btn" onclick="location.href='/budget/search'">가계부 검색</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- js -->
+    <script th:inline="javascript">
+        function findBudget() {
+            const budgetCode = document.getElementById("budgetCode").value;
+            location.href = `/budget/${ budgetCode }`;
+        }
+    </script>
+</body>
+</html>
