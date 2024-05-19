@@ -1,0 +1,28 @@
+### 로그인 실패 테스트
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username" : "user01",
+  "password" : "pass01"
+}
+
+### 로그인 성공 테스트
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username" : "user01",
+  "password" : "1234"
+}
+
+### 인증 실패 테스트
+POST http://localhost:8080/posts
+
+### 인증 성공 테스트
+POST http://localhost:8080/posts
+Authorization: Bearer eyJkYXRlIjoxNzE2MDk3MDk2MTk2LCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsInVzZXJuYW1lIjoidXNlcjAxIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcxNjEwMDY5Nn0.hvK-oI4gq6b3bXjEHktrBpIP_-lkZe5y5t1wlWDCQ7UoqY9DJ232NiT65RvykI5riwZfuhVUqU6-rFzUTf1lhQ
+
+### 인가 실패 테스트
+POST http://localhost:8080/categories
+Authorization: Bearer eyJkYXRlIjoxNzE2MDk3MDk2MTk2LCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsInVzZXJuYW1lIjoidXNlcjAxIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcxNjEwMDY5Nn0.hvK-oI4gq6b3bXjEHktrBpIP_-lkZe5y5t1wlWDCQ7UoqY9DJ232NiT65RvykI5riwZfuhVUqU6-rFzUTf1lhQ
